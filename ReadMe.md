@@ -79,4 +79,3 @@ For questions or suggestions:
 
 **Project Maintainer**: [Amara Necib]   
 **GitHub Issues**: [Create New Issue](#https://github.com/AmaraNecib/Khadra/issues)
-
