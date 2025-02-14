@@ -4,26 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,58 +20,58 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ImatahTheme {
-                // Scaffold provides basic material design layout structure
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    // TODO 0: Call the UI composable function
-                    //FirstUI(modifier = Modifier.padding(innerPadding))
-                    Greeting(name = "Amara", modifier = Modifier.padding(innerPadding))
+                    FirstUI(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-
-
 /**
  * Main composable function for the UI layout
- * @param modifier Modifier for layout adjustments
  */
 @Composable
 fun FirstUI(modifier: Modifier = Modifier) {
-    // TODO 1: Create state variables for text input and items list
+    // ✅ إنشاء متغيرات الحالة
+    var textValue by remember { mutableStateOf("") }
+    val allItems = remember { mutableStateListOf<String>() }
+    var searchQuery by remember { mutableStateOf("") }
+
+    // ✅ تصفية القائمة حسب البحث
+    val displayedItems = if (searchQuery.isEmpty()) {
+        allItems
+    } else {
+        allItems.filter { it.contains(searchQuery, ignoreCase = true) }
+    }
 
     Column(
         modifier = modifier
-            .padding(25.dp)
+            .padding(16.dp)
             .fillMaxSize()
     ) {
+        // ✅ استدعاء شريط الإدخال وتمرير القيم
         SearchInputBar(
-            textValue = "", // TODO 2: Connect to state
-            onTextValueChange = { /* TODO 3: Update text state */ },
-            onAddItem = { /* TODO 4: Add item to list */ },
-            onSearch = { /* TODO 5: Implement search functionality */ }
+            textValue = textValue,
+            onTextValueChange = { textValue = it },
+            onAddItem = {
+                if (it.isNotBlank()) {
+                    allItems.add(it)
+                    textValue = "" // إعادة تعيين الحقل بعد الإضافة
+                }
+            },
+            onSearch = { searchQuery = it }
         )
 
-        // TODO 6: Display list of items using CardsList composable
-        CardsList(emptyList())
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // ✅ عرض القائمة المحدثة
+        CardsList(displayedItems, onDeleteItem = { allItems.remove(it) })
     }
 }
 
 /**
  * Composable for search and input controls
- * @param textValue Current value of the input field
- * @param onTextValueChange Callback for text changes
- * @param onAddItem Callback for adding new items
- * @param onSearch Callback for performing search
  */
 @Composable
 fun SearchInputBar(
@@ -109,11 +94,11 @@ fun SearchInputBar(
                 .padding(vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Button(onClick = { /* TODO 7: Handle add button click */ }) {
+            Button(onClick = { onAddItem(textValue) }) {
                 Text("Add")
             }
 
-            Button(onClick = { /* TODO 8: Handle search button click */ }) {
+            Button(onClick = { onSearch(textValue) }) {
                 Text("Search")
             }
         }
@@ -122,13 +107,10 @@ fun SearchInputBar(
 
 /**
  * Composable for displaying a list of items in cards
- * @param displayedItems List of items to display
  */
 @Composable
-fun CardsList(displayedItems: List<String>) {
-    // TODO 9: Implement LazyColumn to display items
+fun CardsList(displayedItems: List<String>, onDeleteItem: (String) -> Unit) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
-        // TODO 10: Create cards for each item in the list
         items(displayedItems) { item ->
             Card(
                 modifier = Modifier
@@ -136,9 +118,28 @@ fun CardsList(displayedItems: List<String>) {
                     .padding(vertical = 4.dp),
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
-                Text(text = "Sample Item", modifier = Modifier.padding(16.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(text = item)
+                    Button(onClick = { onDeleteItem(item) }) {
+                        Text("Delete")
+                    }
+                }
             }
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewUI() {
+    ImatahTheme {
+        FirstUI()
+    }
+}
+
 
