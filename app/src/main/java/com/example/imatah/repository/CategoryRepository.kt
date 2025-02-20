@@ -9,19 +9,19 @@ object CategoryRepository {
                 id = 1,
                 name = "General",
                 description = "General reports",
-                icon = "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                imageUrl = "https://picsum.photos/id/240/600/400",
             ),
             Category(
                 id = 2,
                 name = "Urgent",
                 description = "Urgent reports",
-                icon = "https://cdn-icons-png.flaticon.com/512/149/149119.png"
+                imageUrl = "https://picsum.photos/id/240/600/400",
             ),
             Category(
                 id = 3,
                 name = "Maintenance",
                 description = "Maintenance reports",
-                icon = "https://cdn-icons-png.flaticon.com/512/149/149120.png"
+                imageUrl = "https://picsum.photos/id/240/600/400",
             )
         )
     }
