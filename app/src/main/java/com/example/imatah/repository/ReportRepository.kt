@@ -12,7 +12,7 @@ object ReportRepository {
                 description = "This is the first report",
                 status = "Pending",
                 category = "General",
-                imageUrl = "https://picsum.photos/id/237/600/400",
+                imageUrl = "https://images.pexels.com/photos/14454209/pexels-photo-14454209.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
                 coordinates = Pair(36.8065, 10.1815),
                 createdAt = Date(),
                 updatedAt = Date()
@@ -34,7 +34,7 @@ object ReportRepository {
                 description = "This is the third report",
                 status = "In Progress",
                 category = "Maintenance",
-                imageUrl = "https://picsum.photos/id/239/600/400",
+                imageUrl = "https://images.pexels.com/photos/30641145/pexels-photo-30641145/free-photo-of-stunning-aerial-view-of-cape-town-beach-waves.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
                 coordinates = Pair(36.8065, 10.1815),
                 createdAt = Date(),
                 updatedAt = Date()
