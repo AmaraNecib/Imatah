@@ -238,6 +238,7 @@ fun ReportItem(report: Report) {
                         .background(Color.White, shape = MaterialTheme.shapes.medium)
                         .width(280.dp)
                 ) {
+                    /////////////////////
                     Text(
                         text = report.name,
                         style = MaterialTheme.typography.titleMedium,
