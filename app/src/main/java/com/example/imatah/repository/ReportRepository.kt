@@ -1,8 +1,9 @@
 package com.example.imatah.repository
 
+import androidx.annotation.DrawableRes
 import com.example.imatah.model.Report
 import java.util.Date
-
+import com.example.imatah.R
 object ReportRepository {
     fun getReports(): List<Report> {
         return listOf(
@@ -12,7 +13,7 @@ object ReportRepository {
                 description = "This is the first report",
                 status = "Pending",
                 category = "General",
-                imageUrl = "https://picsum.photos/id/237/600/400",
+                imageUrl = R.drawable.c,
                 coordinates = Pair(36.8065, 10.1815),
                 createdAt = Date(),
                 updatedAt = Date()
@@ -23,7 +24,7 @@ object ReportRepository {
                 description = "This is the second report",
                 status = "Completed",
                 category = "Urgent",
-                imageUrl = "https://picsum.photos/id/238/600/400",
+                imageUrl = R.drawable.c,
                 coordinates = Pair(36.8065, 10.1815),
                 createdAt = Date(),
                 updatedAt = Date()
@@ -34,7 +35,7 @@ object ReportRepository {
                 description = "This is the third report",
                 status = "In Progress",
                 category = "Maintenance",
-                imageUrl = "https://picsum.photos/id/239/600/400",
+                imageUrl = R.drawable.c,
                 coordinates = Pair(36.8065, 10.1815),
                 createdAt = Date(),
                 updatedAt = Date()
@@ -45,7 +46,7 @@ object ReportRepository {
                 description = "This is the fourth report",
                 status = "Pending",
                 category = "General",
-                imageUrl = "https://picsum.photos/id/240/600/400",
+                imageUrl = R.drawable.c,
                 coordinates = Pair(36.8065, 10.1815),
                 createdAt = Date(),
                 updatedAt = Date()
@@ -56,7 +57,7 @@ object ReportRepository {
                 description = "This is the fifth report",
                 status = "Completed",
                 category = "Urgent",
-                imageUrl = "https://picsum.photos/id/241/600/400",
+                imageUrl = R.drawable.e,
                 coordinates = Pair(36.8065, 10.1815),
                 createdAt = Date(),
                 updatedAt = Date()

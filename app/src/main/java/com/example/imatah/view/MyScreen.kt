@@ -1,29 +1,36 @@
 package com.example.imatah.view
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
+import android.graphics.drawable.Icon
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
 import com.example.imatah.model.Category
 import com.example.imatah.model.Report
 import com.example.imatah.viewmodel.CategoryViewModel
@@ -31,52 +38,142 @@ import com.example.imatah.viewmodel.ReportViewModel
 
 @Composable
 fun MyScreen(categoryViewModel: CategoryViewModel, reportViewModel: ReportViewModel) {
-
-
-
     val categories by categoryViewModel.categoryState.collectAsState()
     val reports by reportViewModel.uiState.collectAsState()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .background(Color(0xFF121212))
+            .padding(top = 55.dp, bottom = 16.dp, start = 16.dp),
+
+
     ) {
-        Text(
-            text = "Categories",
-            style = MaterialTheme.typography.headlineSmall
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        LazyRow {
-            items(categories.categories) { category ->
-                CategoryItem(category = category)
-            }
+        SearchBar()
+        Spacer(modifier = Modifier.height(10.dp))
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "بادر ولك الاجر إن شاء الله ",
+                fontSize = 25.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+                modifier = Modifier.padding( 8.dp),
+
+                )
         }
+        Spacer(modifier = Modifier.height(10.dp))
+        ActionButtons()
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(
-            text = "Reports",
-            style = MaterialTheme.typography.headlineSmall
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        if (reports.isLoading) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
-        } else {
-            LazyColumn {
+        Column(modifier = Modifier.padding(start = 10.dp))  {
+            SectionTitle("Nearly Road Need to Fix")
+            LazyRow {
                 items(reports.reports) { report ->
                     ReportItem(report = report)
                 }
             }
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Column(modifier = Modifier.padding(start = 10.dp)) {
+            SectionTitle("Popular Destination")
+            LazyRow {
+                items(categories.categories) { category ->
+                    CategoryItem(category = category)
+                }
+            }
+        }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SearchBar() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 20.dp, end = 16.dp), // ترك مسافة من الأعلى لتجنب الاصطفاف مع الحافة
+        contentAlignment = Alignment.TopCenter // محاذاة الحقل في أعلى الصفحة وفي المنتصف
+    ) {
+        TextField(
+            value = "",
+            onValueChange = {},
+            placeholder = { Text("Search nearly Volunteer ...", color = Color.Gray) },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "Search Icon",
+                    tint = Color.White,
+                    modifier = Modifier
+                        .size(24.dp)
+                        .background(Color.Black, shape = MaterialTheme.shapes.small) // شكل مدور للأيقونة
+                        .padding(6.dp)
+                )
+            },
+            modifier = Modifier
+                .fillMaxWidth(0.9f) // تقليل عرض الحقل ليكون أصغر
+                .height(50.dp) // تقليل ارتفاع الحقل
+                .background(Color.White, shape = MaterialTheme.shapes.extraLarge) // إزالة لون الخلفية
+                .padding(horizontal = 12.dp), // padding داخلي للحقل
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = Color.Transparent, // إزالة لون الخلفية
+                focusedIndicatorColor = Color.Transparent, // إزالة مؤشر الحقل عند التركيز
+                unfocusedIndicatorColor = Color.Transparent // إزالة مؤشر الحقل عند عدم التركيز
+            )
+        )
+    }
+}
+
+
+@Composable
+fun ActionButtons() {
+    Column (modifier = Modifier.padding(end = 16.dp)) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            ActionButton("Add damaged road",Icons.Default.Add)
+            ActionButton("Progress Tracking",Icons.Default.Edit)
+            ActionButton("Bookmark",Icons.Default.Favorite)
+            ActionButton("Fixed",Icons.Default.Check)
+        }
+
+    }
+}
+
+@Composable
+fun ActionButton(text: String ,Icon : ImageVector) {
+    Button(
+        onClick = {},
+        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFFFFF)),
+        modifier = Modifier
+            .width(85.dp)
+            .height(70.dp),
+        shape = MaterialTheme.shapes.medium
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Icon(imageVector = Icon, contentDescription = text, tint = Color.Black)
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(text = text, color = Color.Black, maxLines = 1, fontSize = 10.sp)
+        }
+    }
+}
+
+
+
+@Composable
+fun SectionTitle(title: String) {
+    Text(
+        text = title,
+        style = MaterialTheme.typography.headlineSmall,
+        color = Color(0xFFFFD700),
+        modifier = Modifier.padding(vertical = 8.dp)
+    )
 }
 
 @Composable
@@ -84,59 +181,90 @@ fun CategoryItem(category: Category) {
     Card(
         modifier = Modifier
             .padding(8.dp)
-            .width(120.dp)
+            .width(130.dp)
+            .height(150.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.DarkGray),
+        shape = RoundedCornerShape(20.dp)
     ) {
-        Column(
-            modifier = Modifier.padding(8.dp)
-        ) {
+        Box {
             AsyncImage(
-                model = category.icon,
+                model = category.imageUrl,
                 contentDescription = category.name,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f)
+                    .fillMaxHeight()
+                    .clip(RoundedCornerShape(20.dp),
+
+
+                        )
+
             )
-            Text(
-                text = category.name,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(top = 8.dp)
-            )
+            Box(
+                modifier = Modifier
+                    .padding(10.dp)
+                    .align(Alignment.BottomCenter)
+            ){
+                Box(
+                    modifier = Modifier
+                        .background(Color.White, shape = MaterialTheme.shapes.medium)
+                        .width(150.dp)
+                ) {
+                    Text(
+                        text = category.name,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = Color.Black,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }}
         }
     }
 }
-
 @Composable
 fun ReportItem(report: Report) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
+            .width(290.dp)
+            .height(170.dp)
+            .padding(7.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.DarkGray),
+        shape = RoundedCornerShape(20.dp)
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            AsyncImage(
-                model = report.imageUrl,
+        Box {
+
+            Image(
+                painter= rememberAsyncImagePainter(report.imageUrl) ,
                 contentDescription = report.name,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(16f / 9f)
+                    .fillMaxSize()
+                    .clip(MaterialTheme.shapes.large)
             )
-            Text(
-                text = report.name,
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(top = 8.dp)
-            )
-            Text(
-                text = report.description,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(top = 4.dp)
-            )
-            Text(
-                text = "Status: ${report.status}",
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(top = 4.dp)
-            )
+            Box(
+                modifier = Modifier
+                    .padding(12.dp)
+                    .align(Alignment.BottomCenter)
+            ) {
+                Column (
+                    modifier = Modifier
+                        .background(Color.White, shape = MaterialTheme.shapes.medium)
+                        .width(280.dp),
+
+                    horizontalAlignment = Alignment.End
+                ) {
+                    Text(
+                        text = report.name,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = Color.Black,
+                        modifier = Modifier.padding( end = 15.dp,top = 8.dp)
+                    )
+                    Text(
+                        text = report.description,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = Color.Black,
+                        modifier = Modifier.padding(end = 15.dp, bottom = 8.dp)
+                    )
+                }
+            }
         }
     }
 }
