@@ -2,6 +2,7 @@ package com.example.imatah.domain.di
 
 import com.example.imatah.data.repository.CategoryRepository
 import com.example.imatah.data.repository.ReportRepository
+import com.example.imatah.domain.usecase.AddReportUseCase
 import com.example.imatah.domain.usecase.GetCategoriesUseCase
 import com.example.imatah.domain.usecase.GetReportsUseCase
 import dagger.Module
@@ -25,5 +26,11 @@ object DomainModule {
     @Singleton
     fun provideCategoryUseCase(categoryRepository: CategoryRepository): GetCategoriesUseCase {
         return GetCategoriesUseCase(categoryRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAddReportUseCase(reportRepository: ReportRepository): AddReportUseCase {
+        return AddReportUseCase(reportRepository)
     }
 }
