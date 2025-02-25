@@ -78,6 +78,6 @@ class ReportRepositoryImpl @Inject constructor(): ReportRepository {
 
     override suspend fun addReport(report: Report) {
         _reports.add(report)
-        _reportFlow.tryEmit(_reports.toList())
+        _reportFlow.emit(_reports.toList())
     }
 }

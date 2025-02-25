@@ -26,4 +26,5 @@ object DataModule {
     fun provideReportRepository(): ReportRepository {
         return ReportRepositoryImpl()
     }
+
 }
