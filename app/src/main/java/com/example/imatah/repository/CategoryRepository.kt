@@ -1,5 +1,5 @@
 package com.example.imatah.repository
-
+//TP2
 import com.example.imatah.model.Category
 
 object CategoryRepository {
@@ -9,19 +9,19 @@ object CategoryRepository {
                 id = 1,
                 name = "General",
                 description = "General reports",
-                icon = "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                imageUrl = "https://images.pexels.com/photos/24828635/pexels-photo-24828635/free-photo-of-close-up-of-a-bronze-statue.jpeg?auto=compress&cs=tinysrgb&w=600",
             ),
             Category(
                 id = 2,
                 name = "Urgent",
                 description = "Urgent reports",
-                icon = "https://cdn-icons-png.flaticon.com/512/149/149119.png"
+                imageUrl = "https://images.pexels.com/photos/30788050/pexels-photo-30788050/free-photo-of-firefighter-tackles-intense-car-blaze-outdoors.jpeg?auto=compress&cs=tinysrgb&w=600",
             ),
             Category(
                 id = 3,
                 name = "Maintenance",
                 description = "Maintenance reports",
-                icon = "https://cdn-icons-png.flaticon.com/512/149/149120.png"
+                imageUrl = "https://images.pexels.com/photos/175039/pexels-photo-175039.jpeg?auto=compress&cs=tinysrgb&w=600",
             )
         )
     }

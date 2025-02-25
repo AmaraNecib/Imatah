@@ -13,51 +13,48 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.graphics.Color
 
 private val LightColorScheme = lightColorScheme(
-    primary = RescueBlue,
-    secondary = AlertOrange,
-    tertiary = AsphaltGray,
-    background = LightSurface,
+    primary = RescueBlue, // تأكد من تعريف RescueBlue في ملف Color.kt
+    secondary = AlertOrange, // تأكد من تعريف AlertOrange في ملف Color.kt
+    tertiary = AsphaltGray, // تأكد من تعريف AsphaltGray في ملف Color.kt
+    background = LightSurface, // تأكد من تعريف LightSurface في ملف Color.kt
     surface = Color.White,
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,
     onBackground = Color.Black,
     onSurface = Color.Black,
-    error = HazardRed,
-    //warning = ConeOrange,
-    //success = SafetyGreen
+    error = HazardRed, // تأكد من تعريف HazardRed في ملف Color.kt
+    //warning = ConeOrange, // تأكد من تعريف ConeOrange في ملف Color.kt
+    //success = SafetyGreen // تأكد من تعريف SafetyGreen في ملف Color.kt
 )
 
 private val DarkColorScheme = darkColorScheme(
-    primary = NightBlue,
-    secondary = EmberOrange,
-    tertiary = ConcreteGray,
-    background = DarkSurface,
+    primary = NightBlue, // تأكد من تعريف NightBlue في ملف Color.kt
+    secondary = EmberOrange, // تأكد من تعريف EmberOrange في ملف Color.kt
+    tertiary = ConcreteGray, // تأكد من تعريف ConcreteGray في ملف Color.kt
+    background = DarkSurface, // تأكد من تعريف DarkSurface في ملف Color.kt
     surface = Color(0xFF37474F),
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,
     onBackground = Color.White,
     onSurface = Color.White,
-    error = HazardRed,
-    //warning = ConeOrange,
-    //success = SafetyGreen
+    error = HazardRed, // تأكد من تعريف HazardRed في ملف Color.kt
+    //warning = ConeOrange, // تأكد من تعريف ConeOrange في ملف Color.kt
+    //success = SafetyGreen // تأكد من تعريف SafetyGreen في ملف Color.kt
 )
 
-
 @Composable
-fun ImatahTheme(
+fun ImatahTheme( // تم تغيير الاسم هنا من ImatahAppTheme إلى ImatahTheme
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    // Choose color scheme based on theme mode
     val colors = if (darkTheme) DarkColorScheme else LightColorScheme
 
     MaterialTheme(
         colorScheme = colors,
-        typography = Typography,
+        typography = Typography, // تأكد من تعريف Typography في ملف Type.kt
         content = content
     )
 }
