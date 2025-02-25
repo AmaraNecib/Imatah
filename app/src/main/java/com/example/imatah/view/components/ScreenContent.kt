@@ -1,0 +1,32 @@
+package com.example.imatah.view.components
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+import com.example.imatah.view.MainScreen
+import com.example.imatah.viewmodel.CategoryViewModel
+import com.example.imatah.viewmodel.ReportViewModel
+
+@Composable
+fun ScreenContent(
+    currentRoute: String,
+    categoryViewModel: CategoryViewModel,
+    reportViewModel: ReportViewModel,
+    modifier: Modifier = Modifier
+) {
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        when (currentRoute) {
+            "Home" -> MainScreen(categoryViewModel, reportViewModel, modifier)
+            "Account" -> Text(text = "Account", fontSize = 25.sp, fontWeight = FontWeight.Bold)
+            "Map" -> Text(text = "Map", fontSize = 25.sp, fontWeight = FontWeight.Bold)
+            "Search" -> Text(text = "Search", fontSize = 25.sp, fontWeight = FontWeight.Bold)
+            "Quick-Report" -> Text(text = "Quick-Report", fontSize = 25.sp, fontWeight = FontWeight.Bold)
+            else -> Text(text = "Unknown", fontSize = 25.sp, fontWeight = FontWeight.Bold)
+        }
+    }
+}

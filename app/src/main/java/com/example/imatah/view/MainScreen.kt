@@ -1,6 +1,5 @@
 package com.example.imatah.view
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -11,7 +10,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -26,7 +24,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.imatah.model.Category
 import com.example.imatah.model.Report
@@ -34,7 +31,7 @@ import com.example.imatah.viewmodel.CategoryViewModel
 import com.example.imatah.viewmodel.ReportViewModel
 
 @Composable
-fun MyScreen(categoryViewModel: CategoryViewModel, reportViewModel: ReportViewModel) {
+fun MainScreen(categoryViewModel: CategoryViewModel, reportViewModel: ReportViewModel,modifier: Modifier = Modifier) {
     val categories by categoryViewModel.categoryState.collectAsState()
     val reports by reportViewModel.uiState.collectAsState()
 
