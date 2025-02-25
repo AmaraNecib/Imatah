@@ -1,4 +1,4 @@
-package com.example.imatah.view
+package com.example.imatah.presentation.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -25,13 +25,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.imatah.model.Category
-import com.example.imatah.model.Report
-import com.example.imatah.viewmodel.CategoryViewModel
-import com.example.imatah.viewmodel.ReportViewModel
+import com.example.imatah.data.model.Category
+import com.example.imatah.data.model.Report
+import com.example.imatah.presentation.viewmodel.CategoryViewModel
+import com.example.imatah.presentation.viewmodel.ReportViewModel
 
 @Composable
-fun MainScreen(categoryViewModel: CategoryViewModel, reportViewModel: ReportViewModel,modifier: Modifier = Modifier) {
+fun MainScreen(categoryViewModel: CategoryViewModel, reportViewModel: ReportViewModel, modifier: Modifier = Modifier) {
     val categories by categoryViewModel.categoryState.collectAsState()
     val reports by reportViewModel.uiState.collectAsState()
 

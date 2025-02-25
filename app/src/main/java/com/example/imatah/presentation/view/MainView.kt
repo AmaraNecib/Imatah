@@ -1,4 +1,4 @@
-package com.example.imatah.view
+package com.example.imatah.presentation.view
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -8,19 +8,20 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.imatah.view.components.ImatahBottomNavigation
-import com.example.imatah.view.components.ImatahTopBar
-import com.example.imatah.view.components.ScreenContent
-import com.example.imatah.viewmodel.CategoryViewModel
-import com.example.imatah.viewmodel.ReportViewModel
+import com.example.imatah.presentation.view.components.ImatahBottomNavigation
+import com.example.imatah.presentation.view.components.ImatahTopBar
+import com.example.imatah.presentation.view.components.ScreenContent
+import com.example.imatah.presentation.viewmodel.CategoryViewModel
+import com.example.imatah.presentation.viewmodel.ReportViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainView() {
     var currentRoute by remember { mutableStateOf("Home") }
-    val categoryViewModel = viewModel<CategoryViewModel>()
-    val reportViewModel = viewModel<ReportViewModel>()
+    val categoryViewModel = hiltViewModel<CategoryViewModel>()
+    val reportViewModel = hiltViewModel<ReportViewModel>()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),

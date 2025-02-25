@@ -1,4 +1,4 @@
-package com.example.imatah.view.components
+package com.example.imatah.presentation.view.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,9 +8,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.imatah.view.MainScreen
-import com.example.imatah.viewmodel.CategoryViewModel
-import com.example.imatah.viewmodel.ReportViewModel
+import com.example.imatah.presentation.view.MainScreen
+import com.example.imatah.presentation.viewmodel.CategoryViewModel
+import com.example.imatah.presentation.viewmodel.ReportViewModel
 
 @Composable
 fun ScreenContent(

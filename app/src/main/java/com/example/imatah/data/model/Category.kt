@@ -1,4 +1,4 @@
-package com.example.imatah.model
+package com.example.imatah.data.model
 
 data class Category(
     val id: Long,

@@ -1,4 +1,4 @@
-package com.example.imatah.model
+package com.example.imatah.data.model
 
 import java.util.Date
 

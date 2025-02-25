@@ -1,4 +1,4 @@
-package com.example.imatah.view.components
+package com.example.imatah.presentation.view.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
