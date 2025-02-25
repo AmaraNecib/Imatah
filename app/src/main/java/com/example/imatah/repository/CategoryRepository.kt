@@ -1,5 +1,5 @@
 package com.example.imatah.repository
-//TP2
+//TP
 import com.example.imatah.model.Category
 
 object CategoryRepository {

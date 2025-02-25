@@ -1,5 +1,5 @@
 package com.example.imatah
-//TP2
+//TP
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity

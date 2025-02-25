@@ -1,5 +1,5 @@
 package com.example.imatah.view
-//TP2
+//TP
 import android.graphics.drawable.Icon
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
