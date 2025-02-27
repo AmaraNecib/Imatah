@@ -1,5 +1,5 @@
 package com.example.imatah.repository
-
+import com.example.imatah.R
 import com.example.imatah.model.Report
 import java.util.Date
 
@@ -8,55 +8,55 @@ object ReportRepository {
         return listOf(
             Report(
                 id = 1,
-                name = "Report 1",
-                description = "This is the first report",
+                name = "BISKRA 300 CITY",
+                description = "\uD83D\uDCCD 456 Downtown Street, Any City",
                 status = "Pending",
                 category = "General",
-                imageUrl = "https://picsum.photos/id/237/600/400",
+                imageUrl = R.drawable.t1.toString().toString(),
                 coordinates = Pair(36.8065, 10.1815),
                 createdAt = Date(),
                 updatedAt = Date()
             ),
             Report(
                 id = 2,
-                name = "Report 2",
-                description = "This is the second report",
+                name = "GHARDAIA 700 CITY",
+                description = "\uD83D\uDCCD 789 Oasis Road, Any City",
                 status = "Completed",
                 category = "Urgent",
-                imageUrl = "https://picsum.photos/id/238/600/400",
+                imageUrl = R.drawable.t2.toString().toString(),
                 coordinates = Pair(36.8065, 10.1815),
                 createdAt = Date(),
                 updatedAt = Date()
             ),
             Report(
                 id = 3,
-                name = "Report 3",
-                description = "This is the third report",
+                name = "ANNABA 400 CITY",
+                description = "\uD83D\uDCCD 321 Desert Avenue, Any City",
                 status = "In Progress",
                 category = "Maintenance",
-                imageUrl = "https://picsum.photos/id/239/600/400",
+                imageUrl = R.drawable.t3.toString().toString(),
                 coordinates = Pair(36.8065, 10.1815),
                 createdAt = Date(),
                 updatedAt = Date()
             ),
             Report(
                 id = 4,
-                name = "Report 4",
-                description = "This is the fourth report",
+                name = "ALGER 900 CITY",
+                description = "\uD83D\uDCCD 654 Coastal Street, Any City",
                 status = "Pending",
                 category = "General",
-                imageUrl = "https://picsum.photos/id/240/600/400",
+                imageUrl = R.drawable.t1.toString().toString(),
                 coordinates = Pair(36.8065, 10.1815),
                 createdAt = Date(),
                 updatedAt = Date()
             ),
             Report(
                 id = 5,
-                name = "Report 5",
-                description = "This is the fifth report",
+                name = "ORAN 700 CITY",
+                description = "\uD83D\uDCCD 987 Harbor Road, Any City",
                 status = "Completed",
                 category = "Urgent",
-                imageUrl = "https://picsum.photos/id/241/600/400",
+                imageUrl = R.drawable.t2.toString(),
                 coordinates = Pair(36.8065, 10.1815),
                 createdAt = Date(),
                 updatedAt = Date()
@@ -64,3 +64,4 @@ object ReportRepository {
         )
     }
 }
+
