@@ -10,4 +10,6 @@ class AddReportViewModel @Inject constructor(private val addReportUseCase: AddRe
 
     //TODO: add the viewmodel logic to add a report
 
+    // this is an example
+
 }
