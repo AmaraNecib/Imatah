@@ -1,5 +1,7 @@
+
 package com.example.imatah.model
 
+import androidx.annotation.DrawableRes
 import java.util.Date
 
 data class Report(
@@ -8,7 +10,7 @@ data class Report(
     val description: String,
     val status: String,
     val category: String,
-    val imageUrl: String,
+    @DrawableRes val imageUrl: Int,
     val coordinates: Pair<Double, Double>,
     val createdAt: Date,
     val updatedAt: Date
