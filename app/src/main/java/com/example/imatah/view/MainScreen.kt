@@ -44,7 +44,7 @@ fun MainScreen(categoryViewModel: CategoryViewModel, reportViewModel: ReportView
 
         SearchBar()
         Text(
-            text = "بسم الله مشاء الله",
+            text = "بادر ولك الأجر إن شاء الله",
             color = Color.White,
             textAlign = TextAlign.Center
 
@@ -107,7 +107,7 @@ fun SearchBar() {
                 .background(Color.White, shape = MaterialTheme.shapes.extraLarge) // إزالة لون الخلفية
                 .padding(horizontal = 12.dp), // padding داخلي للحقل
             colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color.Transparent, // إزالة لون الخلفية
+                containerColor =Color.Transparent, // إزالة لون الخلفية
                 focusedIndicatorColor = Color.Transparent, // إزالة مؤشر الحقل عند التركيز
                 unfocusedIndicatorColor = Color.Transparent // إزالة مؤشر الحقل عند عدم التركيز
             )
@@ -238,8 +238,7 @@ fun ReportItem(report: Report) {
                     /////////////////////
                     Text(
                         text = report.name,
-                        style = MaterialTheme.typography.titleMedium,
-                        color = Color.Black,
+                        style = MaterialTheme.typography.titleMedium,color = Color.Black,
                         modifier = Modifier.padding(8.dp)
                     )
                 }
