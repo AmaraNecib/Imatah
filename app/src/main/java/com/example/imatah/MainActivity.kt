@@ -7,8 +7,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.example.imatah.presentation.view.AppNavigation
 import com.example.imatah.ui.theme.ImatahTheme
-import com.example.imatah.presentation.view.MainView
+//import com.example.imatah.presentation.view.MainView
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -22,8 +23,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                   AppNavigation()
 
-                    MainView()
                 }
             }
         }

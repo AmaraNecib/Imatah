@@ -6,6 +6,10 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.serialization)
     //alias(libs.plugins.google.services)
+
+
+
+
 }
 
 android {
@@ -58,6 +62,9 @@ dependencies {
 
     //Dagger Hilt
     implementation(libs.dagger.hilt)
+    implementation(libs.androidx.storage)
+    implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.ktx)
     kapt(libs.dagger.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
@@ -86,4 +93,18 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
 
+    implementation("androidx.compose.ui:ui:1.5.0")
+    implementation("androidx.compose.material:material:1.5.0")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.5.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    implementation("androidx.compose.foundation:foundation-layout:1.5.0")
+
+
+
+
+
+
 }
+
+
+

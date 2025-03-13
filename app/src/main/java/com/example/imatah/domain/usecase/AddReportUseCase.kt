@@ -4,8 +4,13 @@ import com.example.imatah.data.model.Report
 import com.example.imatah.data.repository.ReportRepository
 import javax.inject.Inject
 
-class AddReportUseCase @Inject constructor(private val reportRepository: ReportRepository) {
+class AddReportUseCase @Inject constructor(
+    private val reportRepository: ReportRepository
+) {
 
-    suspend fun invoke(report: Report) = reportRepository.addReport(report)
+    suspend  operator fun invoke(report: Report) {
+
+     reportRepository.addReport(report)
+    }
 
 }

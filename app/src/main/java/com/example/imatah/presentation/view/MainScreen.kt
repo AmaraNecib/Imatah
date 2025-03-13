@@ -1,4 +1,4 @@
-package com.example.imatah.presentation.view
+package com.example.imatah.presentation.view.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -29,11 +29,41 @@ import com.example.imatah.data.model.Category
 import com.example.imatah.data.model.Report
 import com.example.imatah.presentation.viewmodel.CategoryViewModel
 import com.example.imatah.presentation.viewmodel.ReportViewModel
+import androidx.compose.runtime.collectAsState
+//import com.example.imatah.presentation.view.components.CustomSubmitButton
+
 
 @Composable
-fun MainScreen(categoryViewModel: CategoryViewModel, reportViewModel: ReportViewModel, modifier: Modifier = Modifier) {
+fun MainScreen(
+    categoryViewModel: CategoryViewModel,
+    reportViewModel: ReportViewModel,
+    modifier: Modifier = Modifier,
+    onAddReportClick: () -> Unit
+) {
     val categories by categoryViewModel.categoryState.collectAsState()
     val reports by reportViewModel.uiState.collectAsState()
+    val state by reportViewModel.uiState.collectAsState()
+    Column(modifier = modifier) {
+        // زر أو أي عناصر أخرى
+    }
+
+    Button(
+        onClick = {
+            onAddReportClick()
+            println("Button pressed - navigating to addReportScreen")
+        },
+        modifier = Modifier
+            .width(180.dp) // تقليل عرض الزر
+            .padding(8.dp), // إضافة تباعد خارجي
+        enabled = !state.isLoading
+    ) {
+        if (state.isLoading) {
+            CircularProgressIndicator(modifier = Modifier.size(16.dp))
+        } else {
+            Text("Submit Report")
+        }
+    }
+
 
     Column(
         modifier = Modifier
@@ -43,24 +73,25 @@ fun MainScreen(categoryViewModel: CategoryViewModel, reportViewModel: ReportView
     ) {
 
         SearchBar()
+
         Text(
             text = "بسم الله مشاء الله",
             color = Color.White,
             textAlign = TextAlign.Center
-
-
         )
+
         Spacer(modifier = Modifier.height(20.dp))
+
         ActionButtons()
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Column(modifier = Modifier.padding(start = 10.dp))  {
+        Column(modifier = Modifier.padding(start = 10.dp)) {
             SectionTitle("Nearly Road Need to Fix")
             LazyRow {
                 items(reports.reports) { report ->
                     ReportItem(report = report)
-                }//////////////////////////////
+                }
             }
         }
 
@@ -75,6 +106,40 @@ fun MainScreen(categoryViewModel: CategoryViewModel, reportViewModel: ReportView
             }
         }
     }
+    @Composable
+    fun CustomSubmitButton(
+        onClick: () -> Unit,
+        isLoading: Boolean,
+        text: String = "Submit",
+        modifier: Modifier = Modifier
+    ) {
+        Box(
+            modifier = modifier
+                .size(width = 120.dp, height = 40.dp) // تحديد حجم ثابت للزر
+        ) {
+            Button(
+                onClick = onClick,
+                modifier = Modifier.fillMaxSize(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary // أو استبدلي بلون مثل Color(0xFF6200EE)
+                )
+            ) {
+                if (isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(16.dp),
+                        strokeWidth = 2.dp,
+                        color = Color.White
+                    )
+                } else {
+                    Text(text = text, color = Color.White, fontSize = 14.sp)
+                }
+            }
+        }
+    }
+
+
+
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -83,10 +148,10 @@ fun SearchBar() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 20.dp, end = 16.dp), // ترك مسافة من الأعلى لتجنب الاصطفاف مع الحافة
-        contentAlignment = Alignment.TopCenter // محاذاة الحقل في أعلى الصفحة وفي المنتصف
+            .padding(top = 20.dp, end = 16.dp),
+        contentAlignment = Alignment.TopCenter
     ) {
-        TextField(
+        OutlinedTextField(
             value = "",
             onValueChange = {},
             placeholder = { Text("Search nearly Volunteer ...", color = Color.Gray) },
@@ -97,60 +162,56 @@ fun SearchBar() {
                     tint = Color.White,
                     modifier = Modifier
                         .size(24.dp)
-                        .background(Color.Black, shape = MaterialTheme.shapes.small) // شكل مدور للأيقونة
+                        .background(Color.Black, shape = MaterialTheme.shapes.small)
                         .padding(6.dp)
                 )
             },
             modifier = Modifier
-                .fillMaxWidth(0.9f) // تقليل عرض الحقل ليكون أصغر
-                .height(50.dp) // تقليل ارتفاع الحقل
-                .background(Color.White, shape = MaterialTheme.shapes.extraLarge) // إزالة لون الخلفية
-                .padding(horizontal = 12.dp), // padding داخلي للحقل
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color.Transparent, // إزالة لون الخلفية
-                focusedIndicatorColor = Color.Transparent, // إزالة مؤشر الحقل عند التركيز
-                unfocusedIndicatorColor = Color.Transparent // إزالة مؤشر الحقل عند عدم التركيز
+                .fillMaxWidth(0.9f)
+                .height(50.dp)
+                .background(Color.White, shape = MaterialTheme.shapes.extraLarge)
+                .padding(horizontal = 12.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                containerColor = Color.Transparent,
+                focusedBorderColor = Color.Transparent,
+                unfocusedBorderColor = Color.Transparent
             )
         )
     }
 }
 
-
 @Composable
 fun ActionButtons() {
-    Column (modifier = Modifier.padding(end = 16.dp)) {
+    Column(modifier = Modifier.padding(end = 16.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            ActionButton("Add damaged road",Icons.Default.Add)
-            ActionButton("Progress Tracking",Icons.Default.Edit)
-            ActionButton("Bookmark",Icons.Default.Favorite)
-            ActionButton("Fixed",Icons.Default.Check)
+            ActionButton("Add damaged road", Icons.Default.Add)
+            ActionButton("Progress Tracking", Icons.Default.Edit)
+            ActionButton("Bookmark", Icons.Default.Favorite)
+            ActionButton("Fixed", Icons.Default.Check)
         }
-
     }
 }
 
 @Composable
-fun ActionButton(text: String ,Icon : ImageVector) {
+fun ActionButton(text: String, icon: ImageVector) {
     Button(
-        onClick = {},
-        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFFFFF)),
+        onClick = { /* TODO: تنفيذ العملية */ },
+        colors = ButtonDefaults.buttonColors(containerColor = Color.White),
         modifier = Modifier
             .width(85.dp)
             .height(70.dp),
         shape = MaterialTheme.shapes.medium
-    ) {////////////
+    ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Icon(imageVector = Icon, contentDescription = text, tint = Color.Black)
+            Icon(imageVector = icon, contentDescription = text, tint = Color.Black)
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = text, color = Color.Black, maxLines = 1, fontSize = 10.sp)
         }
     }
 }
-
-
 
 @Composable
 fun SectionTitle(title: String) {
@@ -179,17 +240,13 @@ fun CategoryItem(category: Category) {
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxHeight()
-                    .clip(RoundedCornerShape(20.dp),
-
-
-                        )
-
+                    .clip(RoundedCornerShape(20.dp))
             )
             Box(
                 modifier = Modifier
                     .padding(10.dp)
                     .align(Alignment.BottomCenter)
-            ){
+            ) {
                 Box(
                     modifier = Modifier
                         .background(Color.White, shape = MaterialTheme.shapes.medium)
@@ -201,10 +258,12 @@ fun CategoryItem(category: Category) {
                         color = Color.Black,
                         modifier = Modifier.padding(8.dp)
                     )
-                }}
+                }
+            }
         }
     }
 }
+
 @Composable
 fun ReportItem(report: Report) {
     Card(
@@ -216,7 +275,6 @@ fun ReportItem(report: Report) {
         shape = RoundedCornerShape(20.dp)
     ) {
         Box {
-
             AsyncImage(
                 model = report.imageUrl,
                 contentDescription = report.name,
@@ -235,7 +293,6 @@ fun ReportItem(report: Report) {
                         .background(Color.White, shape = MaterialTheme.shapes.medium)
                         .width(280.dp)
                 ) {
-                    /////////////////////
                     Text(
                         text = report.name,
                         style = MaterialTheme.typography.titleMedium,
@@ -246,4 +303,5 @@ fun ReportItem(report: Report) {
             }
         }
     }
+
 }

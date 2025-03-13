@@ -3,16 +3,17 @@ package com.example.imatah.presentation.view
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.imatah.presentation.view.components.ImatahBottomNavigation
 import com.example.imatah.presentation.view.components.ImatahTopBar
-import com.example.imatah.presentation.view.components.ScreenContent
+import com.example.imatah.presentation.view.components.MainScreen
 import com.example.imatah.presentation.viewmodel.CategoryViewModel
 import com.example.imatah.presentation.viewmodel.ReportViewModel
 
@@ -22,6 +23,9 @@ fun MainView() {
     var currentRoute by remember { mutableStateOf("Home") }
     val categoryViewModel = hiltViewModel<CategoryViewModel>()
     val reportViewModel = hiltViewModel<ReportViewModel>()
+
+    // تعريف navController لاستخدامه في التنقل
+    val navController = rememberNavController()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -37,13 +41,17 @@ fun MainView() {
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color(0xFF121212))
-               .padding(top=50.dp)
+                .padding(top = 50.dp)
         ) {
-            ScreenContent(
-                currentRoute = currentRoute,
+            MainScreen(
+
                 categoryViewModel = categoryViewModel,
                 reportViewModel = reportViewModel,
-//                modifier = Modifier.fillMaxSize().padding(innerPadding)
+                modifier = Modifier.fillMaxSize(),
+                onAddReportClick = {
+                    // التنقل إلى شاشة إضافة التقرير
+                    navController.navigate("addReportScreen")
+                }
             )
         }
     }
