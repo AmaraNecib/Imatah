@@ -5,6 +5,9 @@
     <!-- Allows the app to access the internet, required for network operations like loading images from URLs -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
         android:name=".ImatahApp"
         android:allowBackup="true"
@@ -16,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Imatah"
         tools:targetApi="31">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -23,7 +27,6 @@
             android:theme="@style/Theme.Imatah">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
