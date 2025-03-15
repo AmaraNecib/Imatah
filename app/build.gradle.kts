@@ -47,14 +47,13 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    // ViewModel Kotlin extensions for easier ViewModel usage
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    // Compose integration for ViewModel to use ViewModel in composable functions
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    // Compose integration with Activity for setting up Compose UI in Activities
     implementation(libs.androidx.activity.compose)
-    // Coil image loading library for Compose to load and display images efficiently
     implementation(libs.io.coil.kt.compose)
+
+    // ✅ Google Play Services for Location
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 
     //Dagger Hilt
     implementation(libs.dagger.hilt)
@@ -64,19 +63,18 @@ dependencies {
     //Navigation compose
     implementation(libs.androidx.navigation.compose)
 
-
-    //firebase
-
-//    implementation(platform(libs.google.firebase.bom))
-//    implementation(libs.google.firebase.analytics.ktx)
-//    implementation(libs.google.firebase.auth.ktx)
-//    implementation(libs.google.firebase.firestore.ktx)
+    // Firebase (مُعطَّل حاليًا)
+    // implementation(platform(libs.google.firebase.bom))
+    // implementation(libs.google.firebase.analytics.ktx)
+    // implementation(libs.google.firebase.auth.ktx)
+    // implementation(libs.google.firebase.firestore.ktx)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -84,6 +82,4 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-
 }
