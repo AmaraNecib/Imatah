@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.imatah.presentation.view.components.ImatahBottomNavigation
 import com.example.imatah.presentation.view.components.ImatahTopBar
 import com.example.imatah.presentation.view.components.ScreenContent
@@ -20,30 +19,39 @@ import com.example.imatah.presentation.viewmodel.ReportViewModel
 @Composable
 fun MainView() {
     var currentRoute by remember { mutableStateOf("Home") }
+    // إضافة متغير لتحديد ظهور شريط التنقل
+    var showBottomBar by remember { mutableStateOf(true) }
+
     val categoryViewModel = hiltViewModel<CategoryViewModel>()
     val reportViewModel = hiltViewModel<ReportViewModel>()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = { ImatahTopBar() },
+        // استخدام الشرط لعرض شريط التنقل أو لا
         bottomBar = {
-            ImatahBottomNavigation(
-                currentRoute = currentRoute,
-                onRouteSelected = { route -> currentRoute = route }
-            )
+            if (showBottomBar) {
+                ImatahBottomNavigation(
+                    currentRoute = currentRoute,
+                    onRouteSelected = { route -> currentRoute = route }
+                )
+            }
         }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFF121212))
-               .padding(top=50.dp)
+                .background(Color(0x2F121212))
+                .padding(top = 50.dp)
         ) {
             ScreenContent(
                 currentRoute = currentRoute,
                 categoryViewModel = categoryViewModel,
                 reportViewModel = reportViewModel,
-//                modifier = Modifier.fillMaxSize().padding(innerPadding)
+                onNavigate = { route, showBar ->
+                    currentRoute = route
+                    showBottomBar = showBar
+                }
             )
         }
     }

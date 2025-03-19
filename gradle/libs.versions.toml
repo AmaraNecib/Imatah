@@ -1,5 +1,8 @@
 [versions]
+accompanistPermissions = "0.31.1-alpha"
+activityComposeVersion = "1.8.2"
 agp = "8.8.1"
+composeImagePicker = "1.0.8"
 kotlin = "2.0.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -11,15 +14,24 @@ composeBom = "2024.04.01"
 hiltVersion = "2.51.1"
 hiltNavigation = "1.2.0"
 kaptVersion = "2.1.10"
+materialIconsExtended = "1.5.0"
+materialIconsExtendedVersion = "1.5.4"
 navigatinCompose = "2.8.7"
 gms = "4.4.2"
 firebase = "33.9.0"
 firestore = "25.1.2"
 auth = "23.2.0"
 analytics  = "22.2.0"
+playServicesLocation = "21.3.0"
+playServicesLocationVersion = "21.0.1"
 
 [libraries]
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
+androidx-activity-compose-v182 = { module = "androidx.activity:activity-compose", version.ref = "activityComposeVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+androidx-material-icons-extended-v154 = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtendedVersion" }
+compose-image-picker = { module = "io.github.huhx:compose-image-picker", version.ref = "composeImagePicker" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -47,6 +59,8 @@ google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", ve
 google-firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx" ,version.ref = "analytics"}
 google-firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx" , version.ref="auth"}
 google-firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firestore" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+play-services-location-v2101 = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocationVersion" }
 
 
 [plugins]
