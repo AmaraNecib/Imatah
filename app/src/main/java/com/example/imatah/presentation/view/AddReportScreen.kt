@@ -1,9 +1,11 @@
 package com.example.imatah.presentation.view.components
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,12 +21,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.imatah.presentation.viewmodel.AddReportViewModel
 import com.example.imatah.presentation.viewmodel.AddReportEvent
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,6 +33,17 @@ fun AddReportScreen(
     onBack: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
+
+    var imageUri by remember { mutableStateOf<Uri?>(null) }
+
+    val imagePickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent(),
+        onResult = { uri: Uri? ->
+            if (uri != null) {
+                imageUri = uri
+            }
+        }
+    )
 
     Scaffold(
         topBar = {
@@ -74,18 +85,47 @@ fun AddReportScreen(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
 
-                OutlinedTextField(
-                    value = state.imageUrl,
-                    onValueChange = { viewModel.onEvent(AddReportEvent.ImageUrlChanged(it)) },
-                    label = { Text("Image URL") },
-                    modifier = Modifier.fillMaxWidth()
-                )
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(150.dp)
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(Color.Gray)
+                            .clickable { imagePickerLauncher.launch("image/*") },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        imageUri?.let {
+                            AsyncImage(
+                                model = it,
+                                contentDescription = "Selected Image",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        } ?: Text("اختر صورة", color = Color.White)
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Button(onClick = { imagePickerLauncher.launch("image/*") }) {
+                            Text("تغيير الصورة")
+                        }
+                        if (imageUri != null) {
+                            Button(onClick = { imageUri = null }, colors = ButtonDefaults.buttonColors(containerColor = Color.Red)) {
+                                Text("حذف الصورة")
+                            }
+                        }
+                    }
+                }
+
                 Spacer(modifier = Modifier.height(8.dp))
 
                 CategoryDropdown(
                     selectedCategory = state.category,
                     onCategorySelected = { category ->
-
                         viewModel.onEvent(AddReportEvent.CategorySelected(category))
                     }
                 )
