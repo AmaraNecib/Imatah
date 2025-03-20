@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// نموذج الحالة المستخدمة لعرض التقارير
+
 data class UIState(
     val isLoading: Boolean = false,
     val reports: List<Report> = emptyList(),
@@ -25,7 +25,6 @@ class ReportViewModel @Inject constructor(
     private val getReportsUseCase: GetReportsUseCase
 ) : ViewModel() {
 
-    // حالة الواجهة (UI state)
     private val _uiState = MutableStateFlow(UIState())
     val uiState: StateFlow<UIState> = _uiState.asStateFlow()
 
@@ -36,7 +35,7 @@ class ReportViewModel @Inject constructor(
     fun loadReports() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
-            delay(2000) // تأخير للتوضيح، يمكن إزالته إذا كان غير مطلوب
+            delay(2000)
             getReportsUseCase()
                 .catch {
                     _uiState.value = _uiState.value.copy(

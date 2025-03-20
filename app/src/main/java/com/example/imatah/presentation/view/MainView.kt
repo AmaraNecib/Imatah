@@ -23,7 +23,7 @@ fun MainView() {
     var currentRoute by remember { mutableStateOf("Home") }
     val categoryViewModel = hiltViewModel<CategoryViewModel>()
     val reportViewModel = hiltViewModel<ReportViewModel>()
-    // تعريف navController لاستخدامه في التنقل
+
     val navController = rememberNavController()
 
     Scaffold(
@@ -43,11 +43,11 @@ fun MainView() {
                 .padding(top = 50.dp)
         ) {
             MainScreen(
-                navController = navController, // ✅ تمرير navController
+                navController = navController,
                 categoryViewModel = categoryViewModel,
                 reportViewModel = reportViewModel,
                 modifier = Modifier.fillMaxSize(),
-                onNavigateToAddReport = { navController.navigate("addReportScreen") } // ✅ استخدام الاسم الصحيح
+                onNavigateToAddReport = { navController.navigate("addReportScreen") }
             )
         }
     }

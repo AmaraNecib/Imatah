@@ -46,15 +46,12 @@ class AddReportViewModel @Inject constructor(
     private fun submitReport() {
         val current = _state.value
 
-
-        // اطبع القيم الحالية للتحقق
         println("Title = ${current.title}")
         println("Description = ${current.description}")
         println("Category = ${current.category}")
         println("ImageUrl = ${current.imageUrl}")
         println("Coordinates = ${current.coordinates}")
 
-        // تحقق من صحة المدخلات
         if (current.title.isBlank() ||
             current.description.isBlank() ||
             current.category.isBlank() ||
@@ -64,13 +61,12 @@ class AddReportViewModel @Inject constructor(
             _state.update { it.copy(error = "Please fill all required fields") }
             return
         }
-        // ✅ التحقق من صحة الإحداثيات
+
         if (!isValidCoordinates(current.coordinates)) {
             _state.update { it.copy(error = "Invalid coordinates. Please enter a valid location.") }
             return
         }
 
-        // ✅ تحقق من صحة المدخلات الأخرى
         if (current.title.isBlank() ||
             current.description.isBlank() ||
             current.category.isBlank() ||
@@ -80,7 +76,6 @@ class AddReportViewModel @Inject constructor(
             return
         }
 
-        // ✅ بدء التحميل
         _state.update { it.copy(isLoading = true, error = null, isSuccess = false) }
 
         viewModelScope.launch {
@@ -97,9 +92,8 @@ class AddReportViewModel @Inject constructor(
                     updatedAt = Date()
                 )
 
-                addReportUseCase(report) // إرسال التقرير
+                addReportUseCase(report)
 
-                // ✅ نجاح العملية
                 _state.update { AddReportState(isSuccess = true) }
             } catch (e: Exception) {
                 _state.update { it.copy(isLoading = false, error = "An unexpected error occurred") }
@@ -107,15 +101,11 @@ class AddReportViewModel @Inject constructor(
         }
     }
 
-
-    // 🔍 دالة للتحقق من صحة الإحداثيات
     private fun isValidCoordinates(coordinates: Pair<Double, Double>): Boolean {
         val (latitude, longitude) = coordinates
 
-        // ✅ تأكد أن القيم ليست (0.0, 0.0) ما لم يتم إدخالها يدويًا
         if (latitude == 0.0 && longitude == 0.0) return false
 
-        // ✅ تأكد أن القيم ضمن النطاق المسموح به
         return latitude in -90.0..90.0 && longitude in -180.0..180.0
     }
 

@@ -20,8 +20,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ImatahTheme {
-                val navController = rememberNavController() // ✅ إنشاء NavController
-                AppNavigation(navController = navController) // ✅ تمريره إلى AppNavigation
+                val navController = rememberNavController()
+                AppNavigation(navController = navController)
             }
         }
     }

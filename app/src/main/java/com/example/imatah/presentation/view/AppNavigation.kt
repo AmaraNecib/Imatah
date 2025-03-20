@@ -27,14 +27,14 @@ fun AppNavigation(navController: NavHostController) {
 
             Scaffold(
                 topBar = {
-                    ImatahTopBar(navController) // تمرير navController إلى ImatahTopBar
+                    ImatahTopBar(navController)
                 }
-            ) { paddingValues -> // ✅ استخدام `paddingValues` في `Scaffold`
+            ) { paddingValues ->
                 MainScreen(
                     navController = navController,
                     categoryViewModel = categoryViewModel,
                     reportViewModel = reportViewModel,
-                    modifier = Modifier.padding(paddingValues), // ✅ تطبيق `padding`
+                    modifier = Modifier.padding(paddingValues),
                     onNavigateToAddReport = {
                         navController.navigate("addReportScreen")
                     }

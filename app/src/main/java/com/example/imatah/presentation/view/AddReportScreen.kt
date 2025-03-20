@@ -58,7 +58,6 @@ fun AddReportScreen(
                     .verticalScroll(rememberScrollState())
                     .padding(16.dp)
             ) {
-                // Title Input
                 OutlinedTextField(
                     value = state.title,
                     onValueChange = { viewModel.onEvent(AddReportEvent.TitleChanged(it)) },
@@ -67,7 +66,6 @@ fun AddReportScreen(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Description Input
                 OutlinedTextField(
                     value = state.description,
                     onValueChange = { viewModel.onEvent(AddReportEvent.DescriptionChanged(it)) },
@@ -76,7 +74,6 @@ fun AddReportScreen(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Image URL Input
                 OutlinedTextField(
                     value = state.imageUrl,
                     onValueChange = { viewModel.onEvent(AddReportEvent.ImageUrlChanged(it)) },
@@ -95,7 +92,6 @@ fun AddReportScreen(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Coordinates Input
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -122,7 +118,6 @@ fun AddReportScreen(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Status Dropdown
                 var expandedStatus by remember { mutableStateOf(false) }
                 Box(modifier = Modifier.fillMaxWidth()) {
                     OutlinedTextField(
@@ -157,7 +152,6 @@ fun AddReportScreen(
                 }
                 Spacer(modifier = Modifier.height(8.dp))
 
-                //  Button with Loading Indicator
                 Button(
                     onClick = { viewModel.onEvent(AddReportEvent.Submit) },
                     modifier = Modifier.fillMaxWidth(),
@@ -172,12 +166,10 @@ fun AddReportScreen(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Error Message
                 state.error?.let {
                     Text(text = it, color = Color.Red, modifier = Modifier.padding(8.dp))
                 }
 
-                // Success Message
                 if (state.isSuccess) {
                     Text(text = "Report added successfully!", color = Color.Green, modifier = Modifier.padding(8.dp))
                 }

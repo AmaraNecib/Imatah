@@ -189,7 +189,7 @@ fun ActionButtons(navController: NavController) {
 fun ActionButton(text: String, icon: ImageVector , navController: NavController) {
     Button(
         onClick = {
-            if (text == "Add damaged road") { // ✅ اجعل التنقل مخصصًا لزر Add فقط
+            if (text == "Add damaged road") {
                 navController.navigate("addReportScreen")
             }
         },

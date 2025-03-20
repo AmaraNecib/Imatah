@@ -23,7 +23,7 @@ class CategoryViewModel @Inject constructor(private val getCategoriesUseCase: Ge
     val categoryState: StateFlow<CategoryState> = _categoryState.asStateFlow()
 
     init {
-        // Fetch categories when ViewModel is initialized
+
         loadCategories()
     }
 
