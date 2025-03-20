@@ -260,9 +260,6 @@ fun CategoryItem(category: Category) {
     }
 }
 
-
-
-
 @Composable
 fun ReportItem(report: Report) {
     Card(
