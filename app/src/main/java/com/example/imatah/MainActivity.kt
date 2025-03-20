@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import com.example.imatah.presentation.view.AppNavigation
 import com.example.imatah.ui.theme.ImatahTheme
 //import com.example.imatah.presentation.view.MainView
@@ -19,13 +20,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ImatahTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                   AppNavigation()
-
-                }
+                val navController = rememberNavController() // ✅ إنشاء NavController
+                AppNavigation(navController = navController) // ✅ تمريره إلى AppNavigation
             }
         }
     }

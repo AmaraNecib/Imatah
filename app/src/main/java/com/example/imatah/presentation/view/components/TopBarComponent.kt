@@ -4,7 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Add
+//import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,12 +19,12 @@ import coil.compose.AsyncImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ImatahTopBar() {
+fun ImatahTopBar(navController: androidx.navigation.NavController) {
     Box(
         modifier = Modifier
             .padding(8.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background(Color.Transparent)
+            .background(Color.Black)
             .shadow(elevation = 8.dp, shape = RoundedCornerShape(16.dp))
     ) {
         TopAppBar(
@@ -38,10 +39,10 @@ fun ImatahTopBar() {
                 }
             },
             navigationIcon = {
-                IconButton(onClick = {}) {
+                IconButton(onClick = { /* زر ديكور */ }) {
                     Icon(
-                        imageVector = Icons.Default.Notifications,
-                        contentDescription = "icon",
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add damaged road",
                         tint = Color.White,
                         modifier = Modifier
                             .background(
@@ -64,7 +65,7 @@ fun ImatahTopBar() {
                 )
             },
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = Color.Transparent,
+                containerColor = Color.Black,
                 titleContentColor = Color.White,
                 actionIconContentColor = Color.White,
                 navigationIconContentColor = Color.White

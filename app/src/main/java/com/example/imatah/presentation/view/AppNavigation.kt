@@ -1,44 +1,47 @@
 package com.example.imatah.presentation.view
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.example.imatah.presentation.view.components.AddReportScreen
+import com.example.imatah.presentation.view.components.ImatahTopBar
+import com.example.imatah.presentation.view.components.MainScreen
 import com.example.imatah.presentation.viewmodel.CategoryViewModel
 import com.example.imatah.presentation.viewmodel.ReportViewModel
-//import com.example.imatah.presentation.view.MainScreen
-import com.example.imatah.presentation.view.components.MainScreen
 
 @Composable
-fun AppNavigation() {
-    // أنشئ navController لإدارة التنقل بين الشاشات
-    val navController = rememberNavController()
-
+fun AppNavigation(navController: NavHostController) {
     NavHost(
         navController = navController,
         startDestination = "mainScreen"
     ) {
-        // الشاشة الرئيسية
         composable("mainScreen") {
-            // استدعاء الـ ViewModels من خلال Hilt♥
+
             val categoryViewModel: CategoryViewModel = hiltViewModel()
             val reportViewModel: ReportViewModel = hiltViewModel()
 
-            // استدعاء MainScreen وتمرير الدوال اللازمة
-            MainScreen(
-                categoryViewModel = categoryViewModel,
-                reportViewModel = reportViewModel,
-                modifier = androidx.compose.ui.Modifier,
-                // دالة تستدعي التنقل لشاشة إضافة التقرير
-                onAddReportClick = {
-                    navController.navigate("addReportScreen")
+            Scaffold(
+                topBar = {
+                    ImatahTopBar(navController) // تمرير navController إلى ImatahTopBar
                 }
-            )
+            ) { paddingValues -> // ✅ استخدام `paddingValues` في `Scaffold`
+                MainScreen(
+                    navController = navController,
+                    categoryViewModel = categoryViewModel,
+                    reportViewModel = reportViewModel,
+                    modifier = Modifier.padding(paddingValues), // ✅ تطبيق `padding`
+                    onNavigateToAddReport = {
+                        navController.navigate("addReportScreen")
+                    }
+                )
+            }
         }
 
-        // شاشة إضافة التقرير
         composable("addReportScreen") {
             AddReportScreen(
                 onBack = {

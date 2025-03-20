@@ -84,11 +84,11 @@ fun AddReportScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                //Category
+
                 CategoryDropdown(
                     selectedCategory = state.category,
                     onCategorySelected = { category ->
-                        // عند اختيار فئة جديدة، نرسل الحدث للـ ViewModel
+
                         viewModel.onEvent(AddReportEvent.CategorySelected(category))
                     }
                 )
@@ -157,7 +157,7 @@ fun AddReportScreen(
                 }
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Submit Button with Loading Indicator
+                //  Button with Loading Indicator
                 Button(
                     onClick = { viewModel.onEvent(AddReportEvent.Submit) },
                     modifier = Modifier.fillMaxWidth(),

@@ -23,13 +23,12 @@ fun MainView() {
     var currentRoute by remember { mutableStateOf("Home") }
     val categoryViewModel = hiltViewModel<CategoryViewModel>()
     val reportViewModel = hiltViewModel<ReportViewModel>()
-
     // تعريف navController لاستخدامه في التنقل
     val navController = rememberNavController()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { ImatahTopBar() },
+        topBar = { ImatahTopBar(navController) },
         bottomBar = {
             ImatahBottomNavigation(
                 currentRoute = currentRoute,
@@ -44,14 +43,11 @@ fun MainView() {
                 .padding(top = 50.dp)
         ) {
             MainScreen(
-
+                navController = navController, // ✅ تمرير navController
                 categoryViewModel = categoryViewModel,
                 reportViewModel = reportViewModel,
                 modifier = Modifier.fillMaxSize(),
-                onAddReportClick = {
-                    // التنقل إلى شاشة إضافة التقرير
-                    navController.navigate("addReportScreen")
-                }
+                onNavigateToAddReport = { navController.navigate("addReportScreen") } // ✅ استخدام الاسم الصحيح
             )
         }
     }

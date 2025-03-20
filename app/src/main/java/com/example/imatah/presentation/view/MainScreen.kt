@@ -1,6 +1,7 @@
 package com.example.imatah.presentation.view.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -13,6 +14,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -30,49 +32,38 @@ import com.example.imatah.data.model.Report
 import com.example.imatah.presentation.viewmodel.CategoryViewModel
 import com.example.imatah.presentation.viewmodel.ReportViewModel
 import androidx.compose.runtime.collectAsState
-//import com.example.imatah.presentation.view.components.CustomSubmitButton
-
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource.Companion.SideEffect
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun MainScreen(
+    navController: NavController,
     categoryViewModel: CategoryViewModel,
     reportViewModel: ReportViewModel,
     modifier: Modifier = Modifier,
-    onAddReportClick: () -> Unit
+    onNavigateToAddReport: () -> Unit
 ) {
     val categories by categoryViewModel.categoryState.collectAsState()
     val reports by reportViewModel.uiState.collectAsState()
     val state by reportViewModel.uiState.collectAsState()
-    Column(modifier = modifier) {
-        // زر أو أي عناصر أخرى
-    }
-
-    Button(
-        onClick = {
-            onAddReportClick()
-            println("Button pressed - navigating to addReportScreen")
-        },
-        modifier = Modifier
-            .width(180.dp) // تقليل عرض الزر
-            .padding(8.dp), // إضافة تباعد خارجي
-        enabled = !state.isLoading
-    ) {
-        if (state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.size(16.dp))
-        } else {
-            Text("Submit Report")
-        }
-    }
-
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
-            .background(Color(0xFF121212))
-            .padding(top = 55.dp, bottom = 16.dp, start = 16.dp)
-    ) {
+            .background(Color.Black)
 
-        SearchBar()
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Black)
+                .padding(top = 20.dp, bottom = 10.dp),
+            contentAlignment = Alignment.Center
+        ) {
+
+            SearchBar()
+        }
 
         Text(
             text = "بسم الله مشاء الله",
@@ -81,8 +72,9 @@ fun MainScreen(
         )
 
         Spacer(modifier = Modifier.height(20.dp))
+        ActionButtons(navController)
 
-        ActionButtons()
+        Spacer(modifier = Modifier.height(16.dp))
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -106,7 +98,8 @@ fun MainScreen(
             }
         }
     }
-    @Composable
+}
+@Composable
     fun CustomSubmitButton(
         onClick: () -> Unit,
         isLoading: Boolean,
@@ -115,13 +108,13 @@ fun MainScreen(
     ) {
         Box(
             modifier = modifier
-                .size(width = 120.dp, height = 40.dp) // تحديد حجم ثابت للزر
+                .size(width = 120.dp, height = 40.dp)
         ) {
             Button(
                 onClick = onClick,
                 modifier = Modifier.fillMaxSize(),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary // أو استبدلي بلون مثل Color(0xFF6200EE)
+                    containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
                 if (isLoading) {
@@ -137,17 +130,13 @@ fun MainScreen(
         }
     }
 
-
-
-
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .background(Color.Black)
             .padding(top = 20.dp, end = 16.dp),
         contentAlignment = Alignment.TopCenter
     ) {
@@ -181,31 +170,38 @@ fun SearchBar() {
 }
 
 @Composable
-fun ActionButtons() {
+fun ActionButtons(navController: NavController) {
     Column(modifier = Modifier.padding(end = 16.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            ActionButton("Add damaged road", Icons.Default.Add)
-            ActionButton("Progress Tracking", Icons.Default.Edit)
-            ActionButton("Bookmark", Icons.Default.Favorite)
-            ActionButton("Fixed", Icons.Default.Check)
+            ActionButton("Add damaged road", Icons.Default.Add, navController)
+            ActionButton("Progress Tracking", Icons.Default.Edit, navController)
+            ActionButton("Bookmark", Icons.Default.Favorite, navController)
+            ActionButton("Fixed", Icons.Default.Check, navController)
         }
     }
 }
 
+
 @Composable
-fun ActionButton(text: String, icon: ImageVector) {
+fun ActionButton(text: String, icon: ImageVector , navController: NavController) {
     Button(
-        onClick = { /* TODO: تنفيذ العملية */ },
+        onClick = {
+            if (text == "Add damaged road") { // ✅ اجعل التنقل مخصصًا لزر Add فقط
+                navController.navigate("addReportScreen")
+            }
+        },
         colors = ButtonDefaults.buttonColors(containerColor = Color.White),
         modifier = Modifier
             .width(85.dp)
             .height(70.dp),
         shape = MaterialTheme.shapes.medium
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally
+
+            ) {
             Icon(imageVector = icon, contentDescription = text, tint = Color.Black)
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = text, color = Color.Black, maxLines = 1, fontSize = 10.sp)
@@ -263,6 +259,9 @@ fun CategoryItem(category: Category) {
         }
     }
 }
+
+
+
 
 @Composable
 fun ReportItem(report: Report) {
